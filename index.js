@@ -8,8 +8,11 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-const client = new MongoClient(process.env.MONGO_URI);
-
+const client = new MongoClient(process.env.MONGO_URI, {
+  tls: true,
+  tlsAllowInvalidCertificates: false,
+  serverSelectionTimeoutMS: 5000,
+});
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash"
