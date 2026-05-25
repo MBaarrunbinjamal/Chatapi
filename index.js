@@ -5,9 +5,17 @@ const { MongoClient } = require("mongodb");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const server = express();
-server.use(cors({
-  origin: "*"
-}));
+
+server.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
+
 server.use(express.json());
 
 const client = new MongoClient(process.env.MONGO_URI, {
@@ -15,6 +23,7 @@ const client = new MongoClient(process.env.MONGO_URI, {
   tlsAllowInvalidCertificates: false,
   serverSelectionTimeoutMS: 5000,
 });
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash"
