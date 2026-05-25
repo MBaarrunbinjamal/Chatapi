@@ -5,7 +5,11 @@ const { MongoClient } = require("mongodb");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const server = express();
-server.use(cors());
+const cors = require("cors");
+
+server.use(cors({
+  origin: "https://chatbotfrontend-blush.vercel.app"
+}));
 server.use(express.json());
 
 const client = new MongoClient(process.env.MONGO_URI, {
