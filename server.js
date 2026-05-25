@@ -41,9 +41,9 @@ server.get("/prompts", async (req, res) => {
     await client.connect();
     db = client.db("Chatbot");
     console.log("MongoDB Connected");
-    server.listen(7000, () => {
-      console.log("Server running on port 7000");
-    });
+    // server.listen(7000, () => {
+    //   console.log("Server running on port 7000");
+    // });
   } catch (err) {
     console.error("Failed to connect to MongoDB:", err);
     process.exit(1);
