@@ -5,10 +5,8 @@ const { MongoClient } = require("mongodb");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const server = express();
-const cors = require("cors");
-
 server.use(cors({
-  origin: "https://chatbotfrontend-blush.vercel.app"
+  origin: "*"
 }));
 server.use(express.json());
 
